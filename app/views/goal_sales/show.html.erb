@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Usuario:</strong>
+  <%= @goal_sale.usuario_id %>
+</p>
+
+<p>
+  <strong>Alcanzado:</strong>
+  <%= @goal_sale.alcanzado %>
+</p>
+
+<p>
+  <strong>Fechainicio:</strong>
+  <%= @goal_sale.fechainicio %>
+</p>
+
+<p>
+  <strong>Fechafin:</strong>
+  <%= @goal_sale.fechafin %>
+</p>
+
+<%= link_to 'Edit', edit_goal_sale_path(@goal_sale) %> |
+<%= link_to 'Back', goal_sales_path %>
