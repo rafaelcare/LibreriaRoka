@@ -7,7 +7,7 @@
       <th>Fecha</th>
       <th>Client</th>
       <th>Importetotal</th>
-      <th colspan="3"></th>
+      <th colspan="1"></th>
     </tr>
   </thead>
 
@@ -18,9 +18,9 @@
         <td><%= sale.fecha %></td>
         <td><%= sale.client_id %></td>
         <td><%= sale.importetotal %></td>
-        <td><%= link_to 'Show', sale %></td>
-        <td><%= link_to 'Edit', edit_sale_path(sale) %></td>
-        <td><%= link_to 'Destroy', sale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Visualizar detalle', sale %></td>
+        <%#<td><%#= link_to 'Edit', edit_sale_path(sale) ></td>
+        <td><%#= link_to 'Destroy', sale, method: :delete, data: { confirm: 'Are you sure?' } ></td>%>
       </tr>
     <% end %>
   </tbody>
