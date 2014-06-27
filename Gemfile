@@ -12,7 +12,7 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer',  platforms: :ruby
+gem 'therubyracer',  platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -24,6 +24,20 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'sorcery'
 gem "bcrypt-ruby", :require => "bcrypt"
+
+#https://github.com/seyhunak/twitter-bootstrap-rails
+#gem "therubyracer"
+#gem 'less-rails' #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+gem 'twitter-bootstrap-rails'
+
+
+#MRestringir accesos a los usuarios
+gem "cancan"
+gem "rolify"
+
+gem 'will_paginate', '~> 3.0'
+
+#gem 'less-rails-bootstrap'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

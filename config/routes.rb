@@ -1,22 +1,19 @@
 Rails.application.routes.draw do
-  resources :example_orders
-
-  resources :categories
-
-  resources :goal_sales
-
-  resources :order_details
-
+    
   resources :users
-
+  get "logout" => "sessions#destroy", :as => "logout"
+  get "login" => "sessions#new", :as => "login"
+  get 'users/destroy'
+  get "signup" => "users#new", :as => "signup"
+  get 'users/show'  
+  resources :example_orders
+  resources :categories
+  resources :goal_sales
+  resources :order_details  
   resources :orders
-
   resources :promotions
-
   resources :providers
-
   resources :sale_details
-
   resources :clients do
     collection do
       post :findRFC
@@ -29,7 +26,7 @@ Rails.application.routes.draw do
       get :find
     end
   end
-
+  resources :sessions    
 
   resources :sales
 
