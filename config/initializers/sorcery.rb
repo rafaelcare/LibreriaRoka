@@ -153,7 +153,7 @@ Rails.application.config.sorcery.configure do |config|
     # Default: `:password`
     #
     # user.password_attribute_name =
-
+      user.username_attribute_names = :username
 
     # downcase the username before trying to authenticate, default is false
     # Default: `false`
