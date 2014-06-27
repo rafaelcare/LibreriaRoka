@@ -1,31 +1,43 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
-  # GET /orders
-  # GET /orders.json
+    # GET /example_orders
+  # GET /example_orders.json
   def index
     @orders = Order.all
   end
 
-  # GET /orders/1
-  # GET /orders/1.json
+  # GET /example_orders/1
+  # GET /example_orders/1.json
   def show
   end
 
-  # GET /orders/new
+  # GET /example_orders/new
   def new
     @order = Order.new
+    @order.client = Client.new
   end
 
-  # GET /orders/1/edit
+  # GET /example_orders/1/edit
   def edit
   end
 
-  # POST /orders
-  # POST /orders.json
+  # POST /example_orders
+  # POST /example_orders.json
   def create
     @order = Order.new(order_params)
+    client = Client.new(client_params)    
+    @order.orderDetails.each do |item|   
+       puts "id: " + item.product_id.to_s + ", p. u: " +  + ", cantidad: " + item.cantidad.to_s 
+    end
 
+    if @order.client_id.nil?
+      @order.client = client
+    else
+      @order.client.nombre = client.nombre ##si el cliente ya existe, se actualiza al nuevo valor recibido
+      @order.client.direccion = client.direccion
+    end
+    
     respond_to do |format|
       if @order.save
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
@@ -34,15 +46,15 @@ class OrdersController < ApplicationController
         format.html { render :new }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
-    end
+    end  
   end
 
-  # PATCH/PUT /orders/1
-  # PATCH/PUT /orders/1.json
+  # PATCH/PUT /example_orders/1
+  # PATCH/PUT /example_orders/1.json
   def update
     respond_to do |format|
       if @order.update(order_params)
-        format.html { redirect_to @order, notice: 'Order was successfully updated.' }
+        format.html { redirect_to @order, notice: 'Example order was successfully updated.' }
         format.json { render :show, status: :ok, location: @order }
       else
         format.html { render :edit }
@@ -51,8 +63,8 @@ class OrdersController < ApplicationController
     end
   end
 
-  # DELETE /orders/1
-  # DELETE /orders/1.json
+  # DELETE /example_orders/1
+  # DELETE /example_orders/1.json
   def destroy
     @order.destroy
     respond_to do |format|
@@ -69,6 +81,10 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:usuario_id, :client_id, :fechaPedido, :fechaEntrega, :fechaRealEntrega, :estado)
+      params.require(:order).permit( :client_id, :fechaPedido, :fechaEntrega, :fechaRealEntrega, :estado, :orderDetails_attributes => [:importetotal, :product_id, :cantidad, :preciounitario, :descuento, :total] )
+    end
+
+    def client_params
+      params.require(:client).permit(:rfc, :nombre, :apellidos, :telefono, :direccion, :facebook, :lynkedin, :email)
     end
 end
