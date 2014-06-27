@@ -1,7 +1,7 @@
 <%= form_for(@order) do |f| %>
   <% if @order.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this example_order from being saved:</h2>
 
       <ul>
       <% @order.errors.full_messages.each do |message| %>
@@ -10,15 +10,7 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :usuario_id %><br>
-    <%= f.number_field :usuario_id %>
-  </div>
-  <div class="field">
-    <%= f.label :client_id %><br>
-    <%= f.number_field :client_id %>
-  </div>
+  
   <div class="field">
     <%= f.label :fechaPedido %><br>
     <%= f.datetime_select :fechaPedido %>
@@ -31,11 +23,6 @@
     <%= f.label :fechaRealEntrega %><br>
     <%= f.datetime_select :fechaRealEntrega %>
   </div>
-  <div class="field">
-    <%= f.label :estado %><br>
-    <%= f.text_field :estado %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
   </div>
 <% end %>
+

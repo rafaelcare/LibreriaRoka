@@ -1,41 +1,32 @@
 Rails.application.routes.draw do
-  get 'user/index'
-
-  get 'user/show'
-
-  get 'user/new'
-
-  get 'user/create'
-
-  get 'user/edit'
-
-  get 'user/update'
-
-  get 'user/destroy'
-
-  get 'sessions/new'
-
-  get 'sessions/create'
-
-  get 'sessions/destroy'
-
+    
+  resources :users
+  get "logout" => "sessions#destroy", :as => "logout"
+  get "login" => "sessions#new", :as => "login"
+  get 'users/destroy'
+  get "signup" => "users#new", :as => "signup"
+  get 'users/show'  
+  resources :example_orders
   resources :categories
-
   resources :goal_sales
-
-  resources :order_details
-
+  resources :order_details  
   resources :orders
-
   resources :promotions
-
   resources :providers
-
   resources :sale_details
-
-  resources :clients
-
-  resources :products
+  resources :clients do
+    collection do
+      post :findRFC
+      get :findRFC
+    end
+  end
+  resources :products do
+    collection do
+      post :find
+      get :find
+    end
+  end
+  resources :sessions    
 
   resources :sales
 
@@ -43,7 +34,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'sales#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

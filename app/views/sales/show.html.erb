@@ -1,24 +1,86 @@
-<p id="notice"><%= notice %></p>
+<%= form_for(@sale) do |f| %>
+  <% if @sale.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sale.errors.count, "error") %> prohibited this sale from being saved:</h2>
 
-<p>
-  <strong>Usuario:</strong>
-  <%= @sale.usuario_id %>
-</p>
+      <ul>
+      <% @sale.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-<p>
-  <strong>Fecha:</strong>
-  <%= @sale.fecha %>
-</p>
+<div id="datosClient">  
+  <fieldset>
+  <legend>Datos del cliente</legend>   
+    <%= f.hidden_field :client_id, :readonly => "readonly" %>
+    <%= fields_for @sale.client do |c| %>
+      <%= c.hidden_field :id %>
+      <%#<input type="text" name="clavecliente" id="clavecliente" placeholder="RFC del cliente"/>%>
+      <%= c.text_field :rfc, :id =>"clavecliente", :placeholder => "RFC del cliente" %>
+      <div id="clienteShow">
+        <%= c.text_field :nombre, :id =>"nombrecliente", :placeholder => "Nombre del cliente", :onkeypress=>"validaLetras()" %>
+        <%= c.text_field :apellidos,:id =>"apellidoscliente", :placeholder => "Apellidos del cliente", :onkeypress=>"validaLetras()" %>
+        <%= c.text_field :direccion, :id =>"direccioncliente", :placeholder => "Domicilio" %>
+        <%= c.text_field :email, :id =>"emailcliente", :placeholder => "Email del cliente" %>
+        <%= c.text_field :telefono, :id =>"telefonocliente",  :placeholder => "Teléfono del cliente" %>
+        <%= c.text_field :facebook, :id =>"facebookcliente", :placeholder => "Facebook del cliente" %>
+        <%= c.text_field :lynkedin, :id =>"lynkedincliente", :placeholder => "Lynkedin del cliente" %>
+      </div>
+    <% end %>
+  </fieldset>
+</div>
+<div class="span9">
+<fieldset>
+  <legend>Datos de la venta</legend>
+<div id="detallesVentaContainer">
+  <table id="detallesVentaTable" cellspacing="0">
+    <thead>
+      <th>Clave</th>
+      <th>Descripción</th>
+      <th>P. Unidad</th>
+      <th>Cantidad</th>
+      <th>Descuento x Libro</th>
+      <th>Importe</th>
+    </thead>
+    <tbody>      
+      <% @sale.saleDetails.each do |item| %>
+        <%= f.fields_for :saleDetails, item do |d| %>
+          <tr>
+            <td><%= d.text_field :product_id, :class=>"idLibroVender", :readonly=>"true" %></td>
+                <%= fields_for item.product do |p| %>
+                  <td><%= p.text_field :nombre, :readonly=>"true" %></td>
+                <% end %>
+            <td><%= d.text_field :preciounitario, :class=>"precioUnitario", :readonly => "readonly" %></td>
+            <td><%= d.text_field :cantidad, :class =>"cantidadVender", :readonly => "readonly" %></td>
+            <td><%= d.text_field :descuento, :class =>"descuentoProducto", :readonly => "readonly" %></td>
+            <td><%= d.text_field :importetotal, :class =>"importeProducto", :readonly => "readonly" %></td>            
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <th colspan="2">Total de artículos:</th>
+      <th id="totalArts"></th>
+      <th></th>
+      <th>Importe total:</th>
+      <th id="importeTotalVenta">
+       <div class="control-group">        
+        <%= f.text_field :importetotal, :id=>"importeTotalDeVenta", :placeholder=>"Total de venta" %>
+       </div>
+      </th>
+    </tfoot>
+  </table>
+</div>
+ 
+  <div class="control-group">    
+    <%#= f.datetime_select :fecha %>
+  </div>
+  <div class="form-actions">    
+    <%= link_to t('.Regresar', :default => t("helpers.links.Regresar")), sales_path, :class => 'btn' %>
+  </div>
 
-<p>
-  <strong>Client:</strong>
-  <%= @sale.client_id %>
-</p>
-
-<p>
-  <strong>Importetotal:</strong>
-  <%= @sale.importetotal %>
-</p>
-
-<%= link_to 'Edit', edit_sale_path(@sale) %> |
-<%= link_to 'Back', sales_path %>
+  </fieldset>
+</div>
+<% end %>

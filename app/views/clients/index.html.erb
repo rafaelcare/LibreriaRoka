@@ -1,23 +1,42 @@
-<h1>Listing clients</h1>
+<%- model_class = Client -%>
+<div class="page-header">
+  <h1><%=t '.Cliente' %></h1>
+  <form class="form-search">
+    <div class="input-append">
+        <input type="text" id="search" name="search" class="span2 search-query" placeholder="Buscar...">
+        <button type="submit" class="btn btn-success">Buscar</button>
+    </div>
+  </form> 
+</div>
 
-<table>
+<%# form_tag clients_path, :method => 'get' do >
+  <p>
+    <%= text_field_tag :search, params[:search] >
+    <%= submit_tag "Search", :nombre => nil >
+  </p>
+<% end %>
+
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Rfc</th>
-      <th>Nombre</th>
-      <th>Apellidos</th>
-      <th>Telefono</th>
-      <th>Direccion</th>
-      <th>Facebook</th>
-      <th>Lynkedin</th>
-      <th>Email</th>
-      <th colspan="3"></th>
+      <%#<th><%= model_class.human_attribute_name(:id) ></th>%>
+      <th><%= model_class.human_attribute_name(:rfc) %></th>
+      <th><%= model_class.human_attribute_name(:nombre) %></th>
+      <th><%= model_class.human_attribute_name(:apellidos) %></th>
+      <th><%= model_class.human_attribute_name(:telefono) %></th>
+      <th><%= model_class.human_attribute_name(:direccion) %></th>
+      <th><%= model_class.human_attribute_name(:facebook) %></th>
+      <th><%= model_class.human_attribute_name(:lynkedin) %></th>
+      <th><%= model_class.human_attribute_name(:email) %></th>      
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
-
   <tbody>
     <% @clients.each do |client| %>
       <tr>
+        
+        <%#<td><%= link_to t('.Mostrar', :default => t("helpers.links.Mostrar")),
+                      client_path(client), :class => 'btn btn-mini' %>
         <td><%= client.rfc %></td>
         <td><%= client.nombre %></td>
         <td><%= client.apellidos %></td>
@@ -25,15 +44,28 @@
         <td><%= client.direccion %></td>
         <td><%= client.facebook %></td>
         <td><%= client.lynkedin %></td>
-        <td><%= client.email %></td>
-        <td><%= link_to 'Show', client %></td>
-        <td><%= link_to 'Edit', edit_client_path(client) %></td>
-        <td><%= link_to 'Destroy', client, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= client.email %></td>        
+        <td>
+          <%= link_to t('.Editar', :default => t("helpers.links.Editar")),
+                      edit_client_path(client), :class => 'btn btn-mini' %>
+          <%= link_to t('.Eliminar', :default => t("helpers.links.Eliminar")),
+                      client_path(client),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
+<ul class="pager">
+  <li class="pagination">
+    <%= will_paginate(@Client, :renderer => WillPaginate::ActionView::LinkRenderer)  %>
+  </li>
+</ul>
 
-<%= link_to 'New Client', new_client_path %>
+<hr>
+<%= link_to t('.Agregar cliente', :default => t("helpers.links.Agregar cliente")),
+            new_client_path,
+            :class => 'btn btn-primary' %>
