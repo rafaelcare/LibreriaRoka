@@ -3,8 +3,26 @@ class ProductsController < ApplicationController
 
   # GET /products
   # GET /products.json
-  def index
+  /def index
     @products = Product.all
+    @category = Category.all    
+  end/
+
+  #def index
+    #@products = Product.search(params[:search])
+    #(:all, :conditions => ['first_name LIKE ? || last_name LIKE ? || company_name LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%"])
+  #end
+
+  def index 
+    if params[:search] 
+      @products = Product.where("nombre LIKE '%"+params[:search]+"%'")      
+    if @products.size.zero? 
+      #flash[:resultado] = "No se encontro el libro" 
+      @products = Product.all
+    end 
+    else 
+      @products = Product.all      
+    end 
   end
 
   # GET /products/1
@@ -15,6 +33,7 @@ class ProductsController < ApplicationController
   # GET /products/new
   def new
     @product = Product.new
+    @category = Category.all
   end
 
   # GET /products/1/edit
@@ -58,6 +77,23 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+   #http://localhost:3000/products/find.json?isbn=123
+  def find
+    respond_to do |format|
+      if params[:isbn]
+        @product = Product.find_by isbn: params[:isbn]
+      end
+      if @product.nil?
+        @product = Product.new
+        format.html { render :new } 
+      else
+        format.html { render :show } 
+      end
+      format.json { render json: @product, status: :ok }
+      #format.json { render json: @product, estado: :ok }
     end
   end
 

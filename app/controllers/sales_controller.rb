@@ -1,5 +1,6 @@
 class SalesController < ApplicationController
   before_action :set_sale, only: [:show, :edit, :update, :destroy]
+  #before_filter :require_login, only: [:new, :edit, :update, :destroy]
 
   # GET /sales
   # GET /sales.json
@@ -16,7 +17,9 @@ class SalesController < ApplicationController
   def new
     @sale = Sale.new
     #Asociar el cliente
-    @sale.client = Client.new    
+    @sale.client = Client.new  
+    @sale.usuario_id = current_user
+    #session[:user_id] = user.id 
     #Inicializar ocn valores ficticios
     #@sale.detailsSale << DetailsSale.new(:isbn '123',)
     #@sale.saleDetails << SaleDetail.new(:importetotal => 100)
@@ -38,14 +41,24 @@ class SalesController < ApplicationController
     /#strong parameters >> http://edgeapi.rubyonrails.org/classes/ActionController/StrongParameters.html
     #se habilito strong parameters en el modelo
     @sale = Sale.new(sale_params)
-    client = Client.new(client_params)    
+    client = Client.new(client_params)   
+    @sale.fecha = Time.new
     #al recibir los datos, comprobar si existe el cliente, entonces se pueden actualizar sus datos
     # si no existe el cliente, registrar un nuevo
+    puts "Datos  recibidos del cliente -> " + @sale.usuario_id.nombre
+
     if @sale.client_id.nil?
       @sale.client = client
     else
       @sale.client.nombre = client.nombre ##si el cliente ya existe, se actualiza al nuevo valor recibido
-      @sale.client.direccion = client.direccion
+      @sale.client.direccion = client.direccion       
+      @sale.client.rfc = client.rfc       
+      @sale.client.apellidos = client.apellidos 
+      @sale.client.telefono = client.telefono
+      @sale.client.telefono = client.telefono
+      @sale.client.email = client.email
+      @sale.client.facebook = client.facebook
+      @sale.client.lynkedin = client.lynkedin
     end
 
     puts "Datos recibidos de la nueva venta"
@@ -58,7 +71,6 @@ class SalesController < ApplicationController
        puts "id: " + item.product_id.to_s + ", p. u: " + item.preciounitario.to_s + ", cantidad: " + item.cantidad.to_s +
         ", importeTotalVenta: " + item.importetotal.to_s 
     end     
-
      respond_to do |format|
       if @sale.save
         format.html { redirect_to @sale, notice: 'Sale was successfully created.' }
@@ -109,5 +121,4 @@ class SalesController < ApplicationController
     def client_params
       params.require(:client).permit(:rfc, :nombre, :apellidos, :telefono, :direccion, :facebook, :lynkedin, :email)
     end
-
 end

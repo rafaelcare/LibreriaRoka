@@ -1,34 +1,92 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Usuario:</strong>
-  <%= @order.usuario_id %>
-</p>
+<%= form_for(@order) do |f| %>
+  
+  <div id="datosClienteOrden">  
+  <fieldset>
+  <legend>Datos del cliente</legend>    
+    <%= f.hidden_field :client_id, :readonly => "readonly" %>
+    <%= fields_for @order.client do |c| %>
+      <%= c.hidden_field :id %>
+      <%#<input type="text" name="clavecliente" id="clavecliente" placeholder="RFC del cliente"/>%>
+      <%= c.text_field :rfc, :id =>"clavecliente", :placeholder => "RFC del cliente" %>
+      <div id="cliente">
+        <%= c.text_field :nombre, :id =>"nombrecliente", :placeholder => "Nombre del cliente", :onkeypress=>"validaLetras()" %>
+        <%= c.text_field :apellidos,:id =>"apellidoscliente", :placeholder => "Apellidos del cliente", :onkeypress=>"validaLetras()" %>
+        <%= c.text_field :direccion, :id =>"direccioncliente", :placeholder => "Domicilio" %>
+        <%= c.text_field :email, :id =>"emailcliente", :placeholder => "Email del cliente" %>
+        <%= c.text_field :telefono, :id =>"telefonocliente",  :placeholder => "Teléfono del cliente" %>
+        <%= c.text_field :facebook, :id =>"facebookcliente", :placeholder => "Facebook del cliente" %>
+        <%= c.text_field :lynkedin, :id =>"lynkedincliente", :placeholder => "Lynkedin del cliente" %>
+      </div>
+    <% end %>
+  </fieldset>
+</div> 
+<fieldset>
+  <legend>Datos de la venta</legend>
+<div id="detallesVentaContainer">
+    <di id="agregarProductoContainer">
+      <span>
+        ISBN del libro: <input type="text" name="clavelibro" id="clavelibro" placeholder="Clave del libro"/>        
+      </span>
+      <span>
+        Cantidad de ejemplares: <input type="number" name="cantidadlibro" id="cantidadlibro" placeholder="Cantidad" value="1">
+      </span>
+      <p>% de descuento por libro
+        <input type="number" name="descuentolibro" id="descuentolibro" value="0" onkeypress="validaNumeros()" min="0" max="20" maxlength="2" >
+      </p>      
+    </div>
+  <table id="detallesVentaTable" cellspacing="0">
+    <thead>
+      <th>Clave</th>
+      <th>Descripción</th>
+      <th>P. Unidad</th>
+      <th>Cantidad</th>
+      <th>Descuento x Libro</th>
+      <th>Importe</th>
+    </thead>
+    <tbody>      
+      <% @order.orderDetails.each do |item| %>
+       <%= f.fields_for :orderDetails, item do |d| %>
+          <tr>
+            <td><%= d.text_field :product_id, :readonly=>"true" %></td>
+                <%= fields_for item.product do |p| %>
+                  <td><%= p.text_field :nombre, :readonly=>"true" %></td>
+                <% end %>
+            <td><%= d.text_field :preciounitario, :readonly=>"true" %></td>
+            <td><%= d.text_field :cantidad, :readonly=>"true" %></td>
+            <td><%= d.text_field :descuento, :readonly => "true" %></td>
+            <td><%= d.text_field :importetotal, :readonly=>"true" %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <th colspan="2">Total de artículos:</th>
+      <th id="totalArts">0</th>
+      <th></th>
+      <th>Importe total:</th>
+      <th id="importeTotalVenta">0</th>
+    </tfoot>
+  </table>
+</div>
+  <div class="actions">
+    <button name="guardarOrden" id="guardarOrden" type="button">Registrar pedido</button>
+  </div>
 
-<p>
-  <strong>Client:</strong>
-  <%= @order.client_id %>
-</p>
-
-<p>
-  <strong>Fechapedido:</strong>
-  <%= @order.fechaPedido %>
-</p>
-
-<p>
-  <strong>Fechaentrega:</strong>
-  <%= @order.fechaEntrega %>
-</p>
-
-<p>
-  <strong>Fecharealentrega:</strong>
-  <%= @order.fechaRealEntrega %>
-</p>
-
-<p>
-  <strong>Estado:</strong>
-  <%= @order.estado %>
-</p>
+   <div class="field">
+    <%= f.label :fechaPedido %><br>
+    <%= f.datetime_select :fechaPedido %>
+  </div>
+  <div class="field">
+    <%= f.label :fechaEntrega %><br>
+    <%= f.datetime_select :fechaEntrega %>
+  </div>
+  <div class="field">
+    <%= f.label :fechaRealEntrega %><br>
+    <%= f.datetime_select :fechaRealEntrega %>
+  </div>
+<% end %>
 
 <%= link_to 'Edit', edit_order_path(@order) %> |
 <%= link_to 'Back', orders_path %>
