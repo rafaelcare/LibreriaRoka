@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  usuario_id: 1
+  client_id: 1
+  fechaPedido: 2014-06-22 14:27:12
+  fechaEntrega: 2014-06-22 14:27:12
+  fechaRealEntrega: 2014-06-22 14:27:12
+  estado: MyString
+
+two:
+  usuario_id: 1
+  client_id: 1
+  fechaPedido: 2014-06-22 14:27:12
+  fechaEntrega: 2014-06-22 14:27:12
+  fechaRealEntrega: 2014-06-22 14:27:12
+  estado: MyString
