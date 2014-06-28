@@ -12,6 +12,7 @@
  *
  *= require_tree .
  *= require_self
+<<<<<<< HEAD
   */
 
  body{
@@ -372,3 +373,6 @@ form *:focus {
 #clienteShow{
 	display: block;
 }
+=======
+ */
+>>>>>>> a85857b70e0ab3c5ee42c62102cd2bf50984ba25

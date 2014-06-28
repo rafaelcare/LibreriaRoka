@@ -1,6 +1,9 @@
 class SalesController < ApplicationController
   before_action :set_sale, only: [:show, :edit, :update, :destroy]
+<<<<<<< HEAD
   #before_filter :require_login, only: [:new, :edit, :update, :destroy]
+=======
+>>>>>>> a85857b70e0ab3c5ee42c62102cd2bf50984ba25
 
   # GET /sales
   # GET /sales.json
@@ -16,6 +19,7 @@ class SalesController < ApplicationController
   # GET /sales/new
   def new
     @sale = Sale.new
+<<<<<<< HEAD
     #Asociar el cliente
     @sale.client = Client.new  
     @sale.usuario_id = current_user
@@ -25,6 +29,8 @@ class SalesController < ApplicationController
     #@sale.saleDetails << SaleDetail.new(:importetotal => 100)
     #@sale.saleDetails << SaleDetail.new(:importetotal => 100, :product_id => 4, :cantidad => 1, :preciounitario => 100, :descuento => 10)
     #:importetotal :product_id :cantidad :preciounitario :descuento :total
+=======
+>>>>>>> a85857b70e0ab3c5ee42c62102cd2bf50984ba25
   end
 
   # GET /sales/1/edit
@@ -34,6 +40,7 @@ class SalesController < ApplicationController
   # POST /sales
   # POST /sales.json
   def create
+<<<<<<< HEAD
     /@sale = Sale.new(sale_params)
     @client = Client.new(client_params)    
     puts "Datos  recibidos de la nueva venta"
@@ -72,6 +79,11 @@ class SalesController < ApplicationController
         ", importeTotalVenta: " + item.importetotal.to_s 
     end     
      respond_to do |format|
+=======
+    @sale = Sale.new(sale_params)
+
+    respond_to do |format|
+>>>>>>> a85857b70e0ab3c5ee42c62102cd2bf50984ba25
       if @sale.save
         format.html { redirect_to @sale, notice: 'Sale was successfully created.' }
         format.json { render :show, status: :created, location: @sale }
@@ -79,7 +91,11 @@ class SalesController < ApplicationController
         format.html { render :new }
         format.json { render json: @sale.errors, status: :unprocessable_entity }
       end
+<<<<<<< HEAD
      end
+=======
+    end
+>>>>>>> a85857b70e0ab3c5ee42c62102cd2bf50984ba25
   end
 
   # PATCH/PUT /sales/1
@@ -114,6 +130,7 @@ class SalesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sale_params
+<<<<<<< HEAD
       params.require(:sale).permit(:importetotal, :usuario_id, :fecha, :client_id, :saleDetails_attributes => [:importetotal, :product_id, :cantidad, :preciounitario, :descuento, :total])
       #params.require(:sale).permit(:usuario_id, :fecha, :client_id, :importetotal, detailsSales => detailsSales[:importetotal, :product_id, :cantidad, :preciounitario, :descuento, :total])
     end
@@ -122,3 +139,8 @@ class SalesController < ApplicationController
       params.require(:client).permit(:rfc, :nombre, :apellidos, :telefono, :direccion, :facebook, :lynkedin, :email)
     end
 end
+=======
+      params.require(:sale).permit(:usuario_id, :fecha, :client_id, :importetotal)
+    end
+end
+>>>>>>> a85857b70e0ab3c5ee42c62102cd2bf50984ba25

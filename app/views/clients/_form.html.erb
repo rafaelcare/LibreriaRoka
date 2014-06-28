@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%= form_for @client, :html => { :class => 'form-horizontal' } do |f| %>
 
 
@@ -74,5 +75,54 @@
     <%= f.submit 'Aceptar', :class => 'btn btn-primary' %>
     <%= link_to t('.Cancelar', :default => t("helpers.links.Cancelar")),
                 clients_path, :class => 'btn' %>
+=======
+<%= form_for(@client) do |f| %>
+  <% if @client.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@client.errors.count, "error") %> prohibited this client from being saved:</h2>
+
+      <ul>
+      <% @client.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :rfc %><br>
+    <%= f.text_field :rfc %>
+  </div>
+  <div class="field">
+    <%= f.label :nombre %><br>
+    <%= f.text_field :nombre %>
+  </div>
+  <div class="field">
+    <%= f.label :apellidos %><br>
+    <%= f.text_field :apellidos %>
+  </div>
+  <div class="field">
+    <%= f.label :telefono %><br>
+    <%= f.text_field :telefono %>
+  </div>
+  <div class="field">
+    <%= f.label :direccion %><br>
+    <%= f.text_field :direccion %>
+  </div>
+  <div class="field">
+    <%= f.label :facebook %><br>
+    <%= f.text_field :facebook %>
+  </div>
+  <div class="field">
+    <%= f.label :lynkedin %><br>
+    <%= f.text_field :lynkedin %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+>>>>>>> a85857b70e0ab3c5ee42c62102cd2bf50984ba25
   </div>
 <% end %>

@@ -1,10 +1,18 @@
 <h1>Listing promotions</h1>
 
+<<<<<<< HEAD
 <table class="table table-striped">
   <thead>
     <tr>
       <th>Usuario</th>
       <th>Cliente</th>
+=======
+<table>
+  <thead>
+    <tr>
+      <th>Usuario</th>
+      <th>Client</th>
+>>>>>>> a85857b70e0ab3c5ee42c62102cd2bf50984ba25
       <th>Descripcion</th>
       <th>Acuerdo</th>
       <th>Medio</th>
@@ -16,7 +24,11 @@
     <% @promotions.each do |promotion| %>
       <tr>
         <td><%= promotion.usuario_id %></td>
+<<<<<<< HEAD
         <td><%= promotion.client_id.nombre %></td>
+=======
+        <td><%= promotion.client_id %></td>
+>>>>>>> a85857b70e0ab3c5ee42c62102cd2bf50984ba25
         <td><%= promotion.descripcion %></td>
         <td><%= promotion.acuerdo %></td>
         <td><%= promotion.medio %></td>

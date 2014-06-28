@@ -1,4 +1,5 @@
 class Client < ActiveRecord::Base
+<<<<<<< HEAD
 	has_many :sales
 	has_many :ordes
 
@@ -14,4 +15,6 @@ class Client < ActiveRecord::Base
 	    find(:all, :conditions => ['nombre LIKE ?', "%#{search}%"])	  
 	  end
 	end
+=======
+>>>>>>> a85857b70e0ab3c5ee42c62102cd2bf50984ba25
 end

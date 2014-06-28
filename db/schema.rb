@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20140627020427) do
+=======
+ActiveRecord::Schema.define(version: 20140622194828) do
+>>>>>>> a85857b70e0ab3c5ee42c62102cd2bf50984ba25
 
   create_table "categories", force: true do |t|
     t.string   "nombre"
@@ -127,7 +131,10 @@ ActiveRecord::Schema.define(version: 20140627020427) do
     t.datetime "updated_at"
     t.string   "remember_me_token"
     t.datetime "remember_me_token_expires_at"
+<<<<<<< HEAD
     t.integer  "roles_mask"
+=======
+>>>>>>> a85857b70e0ab3c5ee42c62102cd2bf50984ba25
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

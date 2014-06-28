@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%= form_for(@sale) do |f| %>
   <% if @sale.errors.any? %>
     <div id="error_explanation">
@@ -84,3 +85,29 @@
   </fieldset>
 </div>
 <% end %>
+=======
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Usuario:</strong>
+  <%= @sale.usuario_id %>
+</p>
+
+<p>
+  <strong>Fecha:</strong>
+  <%= @sale.fecha %>
+</p>
+
+<p>
+  <strong>Client:</strong>
+  <%= @sale.client_id %>
+</p>
+
+<p>
+  <strong>Importetotal:</strong>
+  <%= @sale.importetotal %>
+</p>
+
+<%= link_to 'Edit', edit_sale_path(@sale) %> |
+<%= link_to 'Back', sales_path %>
+>>>>>>> a85857b70e0ab3c5ee42c62102cd2bf50984ba25

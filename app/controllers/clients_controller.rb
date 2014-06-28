@@ -4,6 +4,7 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
+<<<<<<< HEAD
     #@clients = Client.all
     #@clients = Client.order("nombre DESC").paginate(:per_page => 5, :page => params[:page])
     if params[:search] 
@@ -23,6 +24,10 @@ class ClientsController < ApplicationController
   end
   
   
+=======
+    @clients = Client.all
+  end
+>>>>>>> a85857b70e0ab3c5ee42c62102cd2bf50984ba25
 
   # GET /clients/1
   # GET /clients/1.json
@@ -78,6 +83,7 @@ class ClientsController < ApplicationController
     end
   end
 
+<<<<<<< HEAD
   def findRFC
     respond_to do |format|
       if params[:rfc]
@@ -93,6 +99,8 @@ class ClientsController < ApplicationController
     end
   end
 
+=======
+>>>>>>> a85857b70e0ab3c5ee42c62102cd2bf50984ba25
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_client

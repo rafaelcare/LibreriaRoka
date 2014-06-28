@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+<<<<<<< HEAD
 //= require twitter/bootstrap
 //= require turbolinks
 //= require_tree .
@@ -295,3 +296,7 @@ function add(number1)
      document.write(" ---- Este valor añadido es ---- "+c);
       add(c);
 }
+=======
+//= require turbolinks
+//= require_tree .
+>>>>>>> a85857b70e0ab3c5ee42c62102cd2bf50984ba25

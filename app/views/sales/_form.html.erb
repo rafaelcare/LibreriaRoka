@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%= form_for @sale, :html => { :class => 'form-horizontal' }  do |f| %>
   
     <button name="guardarVenta" id="guardarVenta" type="button" class="btn btn-primary">Registrar venta</button>
@@ -101,3 +102,38 @@
   </fieldset>
  </div>
 <% end %>
+=======
+<%= form_for(@sale) do |f| %>
+  <% if @sale.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sale.errors.count, "error") %> prohibited this sale from being saved:</h2>
+
+      <ul>
+      <% @sale.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :usuario_id %><br>
+    <%= f.number_field :usuario_id %>
+  </div>
+  <div class="field">
+    <%= f.label :fecha %><br>
+    <%= f.datetime_select :fecha %>
+  </div>
+  <div class="field">
+    <%= f.label :client_id %><br>
+    <%= f.number_field :client_id %>
+  </div>
+  <div class="field">
+    <%= f.label :importetotal %><br>
+    <%= f.text_field :importetotal %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+>>>>>>> a85857b70e0ab3c5ee42c62102cd2bf50984ba25

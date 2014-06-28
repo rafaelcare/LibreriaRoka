@@ -1,5 +1,6 @@
 <p id="notice"><%= notice %></p>
 
+<<<<<<< HEAD
 <%= form_for(@order) do |f| %>
   
   <div id="datosClienteOrden">  
@@ -90,3 +91,37 @@
 
 <%= link_to 'Edit', edit_order_path(@order) %> |
 <%= link_to 'Back', orders_path %>
+=======
+<p>
+  <strong>Usuario:</strong>
+  <%= @order.usuario_id %>
+</p>
+
+<p>
+  <strong>Client:</strong>
+  <%= @order.client_id %>
+</p>
+
+<p>
+  <strong>Fechapedido:</strong>
+  <%= @order.fechaPedido %>
+</p>
+
+<p>
+  <strong>Fechaentrega:</strong>
+  <%= @order.fechaEntrega %>
+</p>
+
+<p>
+  <strong>Fecharealentrega:</strong>
+  <%= @order.fechaRealEntrega %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @order.estado %>
+</p>
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %>
+>>>>>>> a85857b70e0ab3c5ee42c62102cd2bf50984ba25

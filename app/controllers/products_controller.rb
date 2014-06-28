@@ -3,6 +3,7 @@ class ProductsController < ApplicationController
 
   # GET /products
   # GET /products.json
+<<<<<<< HEAD
   /def index
     @products = Product.all
     @category = Category.all    
@@ -23,6 +24,10 @@ class ProductsController < ApplicationController
     else 
       @products = Product.all      
     end 
+=======
+  def index
+    @products = Product.all
+>>>>>>> a85857b70e0ab3c5ee42c62102cd2bf50984ba25
   end
 
   # GET /products/1
@@ -33,7 +38,10 @@ class ProductsController < ApplicationController
   # GET /products/new
   def new
     @product = Product.new
+<<<<<<< HEAD
     @category = Category.all
+=======
+>>>>>>> a85857b70e0ab3c5ee42c62102cd2bf50984ba25
   end
 
   # GET /products/1/edit
@@ -80,6 +88,7 @@ class ProductsController < ApplicationController
     end
   end
 
+<<<<<<< HEAD
    #http://localhost:3000/products/find.json?isbn=123
   def find
     respond_to do |format|
@@ -97,6 +106,8 @@ class ProductsController < ApplicationController
     end
   end
 
+=======
+>>>>>>> a85857b70e0ab3c5ee42c62102cd2bf50984ba25
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
