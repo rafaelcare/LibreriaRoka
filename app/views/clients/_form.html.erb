@@ -1,0 +1,78 @@
+<%= form_for @client, :html => { :class => 'form-horizontal' } do |f| %>
+
+
+ <div class="control-group<%= @client.errors[:nombre].any? ? " error" : "" %>">
+    <%= f.label :nombre, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :nombre, :class => 'text_field' %>
+      <%#Obtener solo el mensaje con la expresion regular /\w([^]*)/%>
+      <span class="help-inline">
+      <%= @client.errors[:nombre].any? ? @client.errors[:nombre].to_s[/\w([^"]*)/] : "" %></span>
+    </div>
+  </div>
+
+  <div class="control-group <%= @client.errors[:rfc].any? ? " error" : "" %>">
+    <%= f.label :rfc, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :rfc, :class => 'text_field' %>
+      <span class="help-inline">
+      <%= @client.errors[:rfc].any? ? @client.errors[:rfc].to_s[/\w([^"]*)/] : "" %></span>
+    </div>
+  </div>
+  <%#<div class="control-group">
+    <%= f.label :nombre, :class => 'control-label' >
+    <div class="controls">
+      <%= f.text_field :nombre, :class => 'text_field' >
+    </div>
+  </div>%>
+  <div class="control-group <%= @client.errors[:apellidos].any? ? " error" : "" %> ">
+    <%= f.label :apellidos, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :apellidos, :class => 'text_field' %>
+      <span class="help-inline">
+      <%= @client.errors[:apellidos].any? ? @client.errors[:apellidos].to_s[/\w([^"]*)/] : "" %></span>
+    </div>
+  </div>
+  <div class="control-group <%= @client.errors[:telefono].any? ? " error" : "" %>">
+    <%= f.label :telefono, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :telefono, :class => 'text_field' %>
+      <span class="help-inline">
+      <%= @client.errors[:telefono].any? ? @client.errors[:telefono].to_s[/\w([^"]*)/] : "" %></span>
+    </div>
+  </div>
+  <div class="control-group <%= @client.errors[:direccion].any? ? " error" : "" %>">
+    <%= f.label :direccion, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :direccion, :class => 'text_field' %>
+      <span class="help-inline">
+      <%= @client.errors[:direccion].any? ? @client.errors[:direccion].to_s[/\w([^"]*)/] : "" %></span>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :facebook, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :facebook, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :lynkedin, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :lynkedin, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group  <%= @client.errors[:email].any? ? " error" : "" %>">
+    <%= f.label :email, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :email, :class => 'text_field' %>
+      <span class="help-inline">
+      <%= @client.errors[:email].any? ? @client.errors[:email].to_s[/\w([^"]*)/] : "" %></span>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit 'Aceptar', :class => 'btn btn-primary' %>
+    <%= link_to t('.Cancelar', :default => t("helpers.links.Cancelar")),
+                clients_path, :class => 'btn' %>
+  </div>
+<% end %>

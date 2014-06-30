@@ -1,0 +1,99 @@
+<%= form_for(@order) do |f| %>
+  <% if @order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this example_order from being saved:</h2>
+
+      <ul>
+      <% @order.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div id="datosClienteOrden">  
+  <fieldset>
+  <legend>Datos del cliente</legend>    
+    <%= f.hidden_field :client_id, :readonly => "readonly" %>
+    <%= fields_for @order.client do |c| %>
+      <%= c.hidden_field :id %>
+      <%#<input type="text" name="clavecliente" id="clavecliente" placeholder="RFC del cliente"/>%>
+      <%= c.text_field :rfc, :id =>"clavecliente", :placeholder => "RFC del cliente" %>
+      <div id="cliente">
+        <%= c.text_field :nombre, :id =>"nombrecliente", :placeholder => "Nombre del cliente", :onkeypress=>"validaLetras()" %>
+        <%= c.text_field :apellidos,:id =>"apellidoscliente", :placeholder => "Apellidos del cliente", :onkeypress=>"validaLetras()" %>
+        <%= c.text_field :direccion, :id =>"direccioncliente", :placeholder => "Domicilio" %>
+        <%= c.text_field :email, :id =>"emailcliente", :placeholder => "Email del cliente" %>
+        <%= c.text_field :telefono, :id =>"telefonocliente",  :placeholder => "Teléfono del cliente" %>
+        <%= c.text_field :facebook, :id =>"facebookcliente", :placeholder => "Facebook del cliente" %>
+        <%= c.text_field :lynkedin, :id =>"lynkedincliente", :placeholder => "Lynkedin del cliente" %>
+      </div>
+    <% end %>
+  </fieldset>
+</div>  
+<fieldset>
+  <legend>Datos de la venta</legend>
+<div id="detallesVentaContainer">
+    <di id="agregarProductoContainer">
+      <span>
+        ISBN del libro: <input type="text" name="clavelibro" id="clavelibro" placeholder="Clave del libro"/>        
+      </span>
+      <span>
+        Cantidad de ejemplares: <input type="number" name="cantidadlibro" id="cantidadlibro" placeholder="Cantidad" value="1">
+      </span>
+      <p>% de descuento por libro
+        <input type="number" name="descuentolibro" id="descuentolibro" value="0" onkeypress="validaNumeros()" min="0" max="20" maxlength="2" >
+      </p>      
+    
+  <table id="detallesVentaTable" cellspacing="0">
+    <thead>
+      <th>Clave</th>
+      <th>Descripción</th>
+      <th>P. Unidad</th>
+      <th>Cantidad</th>
+      <th>Descuento x Libro</th>
+      <th>Importe</th>
+    </thead>
+    <tbody>      
+      <% @order.orderDetails.each do |item| %>
+        <%= f.fields_for :orderDetails, item do |d| %>
+          <tr>
+            <td><%= d.text_field :product_id, :class =>"idLibroVender", :readonly => "readonly" %></td>
+            <td><input type="text" id="nombreProducto" value="" readonly="readonly"></td>
+            <td><%#= d.text_field :preciounitario, :readonly => "readonly" %></td>
+            <td><%= d.text_field :cantidad, :class =>"cantidadVender", :readonly => "readonly" %></td>
+            <td><%= d.text_field :estado, :class =>"estadoProducto", :value=>"En proceso..", :readonly => true %></td>
+            <td><%#= d.text_field :importetotal, :class =>"importeProducto", :readonly => "readonly" %></td>            
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <th colspan="2">Total de artículos:</th>
+      <th id="totalArts">0</th>
+      <th></th>
+      <th>Importe total:</th>
+      <th id="importeTotalVenta">0</th>
+    </tfoot>
+  </table>
+</div>
+  <div class="actions">
+    <br>
+    <button name="guardarOrden" id="guardarOrden" type="button">Registrar pedido</button>
+  </div>
+
+  <div class="field">
+    <%= f.label :fechaPedido %><br>
+    <%= f.datetime_select :fechaPedido %>
+  </div>
+  <div class="field">
+    <%= f.label :fechaEntrega %><br>
+    <%= f.datetime_select :fechaEntrega %>
+  </div>
+  <div class="field">
+    <%= f.label :fechaRealEntrega %><br>
+    <%= f.datetime_select :fechaRealEntrega %>
+  </div>
+  </div>
+<% end %>
+

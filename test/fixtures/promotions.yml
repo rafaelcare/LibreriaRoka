@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  usuario_id: 1
+  client_id: 1
+  descripcion: MyText
+  acuerdo: MyText
+  medio: MyString
+
+two:
+  usuario_id: 1
+  client_id: 1
+  descripcion: MyText
+  acuerdo: MyText
+  medio: MyString

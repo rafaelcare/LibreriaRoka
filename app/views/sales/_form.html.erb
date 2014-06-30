@@ -1,0 +1,103 @@
+<%= form_for @sale, :html => { :class => 'form-horizontal' }  do |f| %>
+  
+    <button name="guardarVenta" id="guardarVenta" type="button" class="btn btn-primary">Registrar venta</button>
+  
+    <% if @sale.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@sale.errors.count, "error") %> prohibited this sale from being saved:</h2>
+
+        <ul>
+        <% @sale.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+  <div id="datosClient">  
+    <fieldset>
+    <legend>Datos del cliente</legend>   
+      <%= f.hidden_field :client_id, :readonly => "readonly" %>
+      <%= fields_for @sale.client do |c| %>
+        <%= c.hidden_field :id %>      
+        <%= c.text_field :rfc, :id =>"clavecliente", :placeholder => "RFC del cliente" %>
+        <div id="cliente">
+          <%= c.text_field :nombre, :id =>"nombrecliente", :placeholder => "Nombre del cliente", :onkeypress=>"validaLetras()" %>
+          <%= c.text_field :apellidos,:id =>"apellidoscliente", :placeholder => "Apellidos del cliente", :onkeypress=>"validaLetras()" %>
+          <%= c.text_field :direccion, :id =>"direccioncliente", :placeholder => "Domicilio" %>
+          <%= c.text_field :email, :id =>"emailcliente", :placeholder => "Email del cliente" %>
+          <%= c.text_field :telefono, :id =>"telefonocliente",  :placeholder => "Teléfono del cliente" %>
+          <%= c.text_field :facebook, :id =>"facebookcliente", :placeholder => "Facebook del cliente" %>
+          <%= c.text_field :lynkedin, :id =>"lynkedincliente", :placeholder => "Lynkedin del cliente" %>
+        </div>
+      <% end %>
+    </fieldset>
+  </div>
+  <fieldset>
+    <legend>Datos de la venta</legend>
+  <div id="detallesVentaContainer">
+      <di id="agregarProductoContainer">      
+       <div class="control-group">
+        <div class="controls">
+          <div class='control-label'> ISBN del libro:</div>
+          <input type="text" name="clavelibro" id="clavelibro" placeholder="Clave del libro" class="text_field"/>            
+        </div>
+       </div>
+       <div class="control-group">
+        <div class="controls">
+          <div class='control-label'>Cantidad de ejemplares: </div>
+          <input type="number" name="cantidadlibro" id="cantidadlibro" placeholder="Cantidad" value="1" class="text_field"/>
+        </div>  
+       </div>
+       <div class="control-group">
+        <div class="controls">
+          <div class='control-label'>Descuento por libro</div>
+          <input type="number" name="descuentolibro" id="descuentolibro" value="0" onkeypress="validaNumeros()" min="0" max="20" maxlength="2" class="text_field"/>
+        </div>   
+       </div>
+      </div>
+      <%# Crear la tabla donde agregaremos los productos %>
+
+    <table id="detallesVentaTable" cellspacing="0" class="table table-striped">
+      <thead>
+        <th>Clave</th>
+        <th>Descripción</th>
+        <th>P. Unidad</th>
+        <th>Cantidad</th>
+        <th>Descuento x Libro</th>
+        <th>Importe</th>
+      </thead>
+      <tbody>      
+        <% @sale.saleDetails.each do |item| %>
+          <%= f.fields_for :saleDetails, item do |d| %>
+            <tr>
+              <td><%= d.text_field :product_id, :name=>"idLibroVender", :class=>"idLibroVender", :readonly=>"readonly", :value=>""%>
+              </td>
+              <td><input type="text" id="nombreProducto" value="" readonly="readonly"></td>
+              <td><%= d.text_field :preciounitario, :class=>"precioUnitario", :readonly => "readonly" %></td>
+              <td><%= d.text_field :cantidad, :class =>"cantidadVender", :readonly => "readonly" %></td>
+              <td><%= d.text_field :descuento, :class =>"descuentoProducto", :readonly => "readonly" %></td>
+              <td><%= d.text_field :importetotal, :class =>"importeProducto", :readonly => "readonly" %></td>            
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <th colspan="2">Total de artículos:</th>
+        <th id="totalArts">0</th>
+        <th></th>
+        <th>Importe total:</th>
+        <th id="importeTotalVenta">0</th>
+      </tfoot>
+    </table>
+    <br>
+    <div class="control-group">
+      <%= f.label :importe_total, :class => 'control-label' %>      
+      <div class="input-group">
+        <span class="input-group-addon">$</span>
+          <%= f.text_field :importetotal, :id => "importeTotalDeVenta", :placeholder=>"Total de venta", :class =>"form-control", :readonly => "readonly" %>
+        <span class="input-group-addon">.00</span>
+      </div>
+    </div>
+  </fieldset>
+ </div>
+<% end %>
