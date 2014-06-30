@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  usuario_id: 1
+  fecha: 2014-06-25 11:40:52
+  client_id: 1
+  importetotal: 1.5
+
+two:
+  usuario_id: 1
+  fecha: 2014-06-25 11:40:52
+  client_id: 1
+  importetotal: 1.5

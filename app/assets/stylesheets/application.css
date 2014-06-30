@@ -1,0 +1,180 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+body{
+ 	background: #ccc;  	
+ 	/**background: -moz-linear-gradient(top, white, blue);  	
+ 	background: -moz-linear-gradient(top, white, #152231 100px); 
+ 	background: -webkit-gradient(linear, 0 10, 0 100%, from(white), to(#152231));*/
+ }
+
+ div .target{
+ 	/*display: none;*/
+ }
+
+header h1 .titulo {
+	font-size: 32px;
+	color: #000;
+}
+header h1{	
+	color: #000;
+	text-align: center;
+	padding-top: 0px;
+}
+header .opciones{
+ 	background: #152231; 	
+ 	text-align: center;
+ }
+
+header .opciones{
+	display: inline-block;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	width: 100%;
+}
+
+header .opciones a{
+	margin-right: 7px;
+	font-family: Arial;
+	font-size: 20px;
+	color: #ccddff;
+	padding-bottom: 1px;
+	text-decoration: inherit;
+}
+
+header .opciones  a:hover{
+	background:#94C6FC;	
+	height: 30px;
+	width: 120px ;
+	display: inline-block;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 2px;
+	color: #000;
+	text-decoration: inherit;
+	vertical-align: super;
+	text-decoration: none;	
+}
+header .opciones a:active{
+	background:#0EFBF3;	
+	height: 30px;
+	width: 120px ;
+	display: inline-block;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 2px;
+	color: #000;
+	text-decoration: inherit;
+	vertical-align: super;
+	text-decoration: none;	
+}
+
+/*header h1 .logotipo {
+	position: fixed;		
+	background-repeat: repeat-x;	
+	vertical-align: middle;		
+	text-align: left;
+	margin-left: 3px;
+	max-width: 10%;
+	height: auto;
+}*/
+/* General Article */
+#mainContent{
+	margin-top: 20px;
+	/*text-align: center;*/
+	background: #fff;
+	width: 90%;		
+	
+	margin-left: 76px;
+	margin-right: 76px;
+}
+
+
+article {	
+	text-align: center;	
+	display: inline-block;			
+	color: #123D6B;
+	text-decoration: none;
+	margin-top: 10px;
+}
+
+article .mainContent{
+	text-decoration: inherit;
+	text-transform: uppercase;
+	margin-left: 70px;
+	margin-right: 70px;	
+	margin-top: 10px;
+}
+article a{
+	color: blue;
+	text-decoration: inherit;
+}
+article a:hover{
+	color: #000;
+	background: #94C6FC;
+	text-decoration: inherit;		
+	display: inline-block;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	color: #000;	
+	vertical-align: inherit;
+	text-decoration: none;	
+}
+
+/* Checkin View */
+#search{
+	width: 160px;
+	padding: 1px;
+	font: 0px 'lucida sans', 'trebuchet MS', 'Tahoma';
+	border: 1px solid  #C7C7C7;
+	-moz-box-shadow: 0 1px 1px #ddd inset, 0 1px 0 #fff;
+	-webkit-box-shadow: 0 1px 1px #ddd inset, 0 1px 0 #fff;
+	box-shadow: 0 1px 1px #ddd inset, 0 1px 0 #fff;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	position: fixed;
+	height: 25px;
+}
+
+footer {	
+	text-align: center;
+	color: #444;
+	margin-bottom: auto;
+	height: 100%;
+}
+
+table {	
+	border-collapse: collapse #300208;	
+	width:70%;
+	margin-left:auto;
+	margin-right:auto;
+	text-align:center;
+	margin-top: 30px;
+
+}
+table {	
+	border-collapse: collapse #300208;	
+	width:70%;
+	margin-left:auto;
+	margin-right:auto;
+	text-align:center;
+	margin-top: 30px;
+	background-color:#FAF5FF;
+	border-radius: 5px;	
+    min-width:350px;
+    font-family: Helvetica,Arial;
+}

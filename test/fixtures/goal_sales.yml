@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  usuario_id: 1
+  alcanzado: false
+  fechainicio: 2014-06-25 11:43:10
+  fechafin: 2014-06-25 11:43:10
+
+two:
+  usuario_id: 1
+  alcanzado: false
+  fechainicio: 2014-06-25 11:43:10
+  fechafin: 2014-06-25 11:43:10
