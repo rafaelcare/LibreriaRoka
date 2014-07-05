@@ -1,29 +1,29 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Promotion -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
 
-<p>
-  <strong>Usuario:</strong>
-  <%= @promotion.usuario_id %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:usuario_id) %>:</strong></dt>
+  <dd><%= @promotion.usuario_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:client_id) %>:</strong></dt>
+  <dd><%= @promotion.client_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:descripcion) %>:</strong></dt>
+  <dd><%= @promotion.descripcion %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:acuerdo) %>:</strong></dt>
+  <dd><%= @promotion.acuerdo %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:medio) %>:</strong></dt>
+  <dd><%= @promotion.medio %></dd>
+</dl>
 
-<p>
-  <strong>Client:</strong>
-  <%= @promotion.client_id %>
-</p>
-
-<p>
-  <strong>Descripcion:</strong>
-  <%= @promotion.descripcion %>
-</p>
-
-<p>
-  <strong>Acuerdo:</strong>
-  <%= @promotion.acuerdo %>
-</p>
-
-<p>
-  <strong>Medio:</strong>
-  <%= @promotion.medio %>
-</p>
-
-<%= link_to 'Edit', edit_promotion_path(@promotion) %> |
-<%= link_to 'Back', promotions_path %>
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              promotions_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_promotion_path(@promotion), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              promotion_path(@promotion),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

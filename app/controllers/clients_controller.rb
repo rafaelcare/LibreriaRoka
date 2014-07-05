@@ -4,8 +4,25 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    @clients = Client.all
+    #@clients = Client.all
+    #@clients = Client.order("nombre DESC").paginate(:per_page => 5, :page => params[:page])
+    if params[:search] 
+    #where(['project_name LIKE ? OR client LIKE ?', "%#{search_term}%", "%#{search_term}%"])
+    #@clients = Client.where(['nombre LIKE ? || apellidos LIKE ? ', "%#{params[:search]}%", "%#{params[:search]}%"]).page(params[:page]).page(params[:page]).per_page(10) 
+    #@clients = Client.where("nombre, apellidos LIKE '%"+params[:search]+"%'")    
+    #@clients = Client.where(:all, :conditions => ["nombre LIKE ? || apellidos LIKE ? '%"+params[:search]+"%'", "%"+params[:search]+"%"]).page(params[:page]).page(params[:page]).per_page(10) 
+    @clients = Client.where("nombre || apellidos LIKE '%"+params[:search]+"%'").page(params[:page]).per_page(5) 
+    #@clients.paginate :per_page => 5, :page => page, :order => 'created_at DESC'
+    if @clients.size.zero? 
+      flash[:notice] = "No se encontro ningun resultado" 
+      @clients = Client.all.order("nombre ASC").paginate(:per_page => 5, :page => params[:page])    
+    end 
+    else 
+      @clients = Client.all.order("nombre ASC").paginate(:per_page => 5, :page => params[:page])    
+    end 
   end
+  
+  
 
   # GET /clients/1
   # GET /clients/1.json
@@ -58,6 +75,21 @@ class ClientsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to clients_url, notice: 'Client was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def findRFC
+    respond_to do |format|
+      if params[:rfc]
+        @client = Client.find_by rfc: params[:rfc]
+      end
+      if @client.nil?
+        @client = Client.new
+        format.html { render :new } 
+      else
+        format.html { render :show } 
+      end
+      format.json { render json: @client, status: :ok }      
     end
   end
 

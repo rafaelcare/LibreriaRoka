@@ -3,15 +3,15 @@
 one:
   usuario_id: 1
   client_id: 1
-  fechaPedido: 2014-06-22 14:27:12
-  fechaEntrega: 2014-06-22 14:27:12
-  fechaRealEntrega: 2014-06-22 14:27:12
+  fechaPedido: 2014-06-28 17:00:44
+  fechaEntrega: 2014-06-28 17:00:44
+  fechaRealEntrega: 2014-06-28 17:00:44
   estado: MyString
 
 two:
   usuario_id: 1
   client_id: 1
-  fechaPedido: 2014-06-22 14:27:12
-  fechaEntrega: 2014-06-22 14:27:12
-  fechaRealEntrega: 2014-06-22 14:27:12
+  fechaPedido: 2014-06-28 17:00:44
+  fechaEntrega: 2014-06-28 17:00:44
+  fechaRealEntrega: 2014-06-28 17:00:44
   estado: MyString

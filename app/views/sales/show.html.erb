@@ -1,56 +1,61 @@
-<p id="notice"><%= notice %></p>
-
 <%= form_for(@sale) do |f| %>
+  <% if @sale.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sale.errors.count, "error") %> prohibited this sale from being saved:</h2>
 
-<div id="datosClient">
+      <ul>
+      <% @sale.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div id="datosClient">  
   <fieldset>
-  <legend>Datos del cliente</legend>
-    <%= f.text_field :client_id, :readonly=>"true"  %>
-
+  <legend>Datos del cliente</legend>   
+    <%= f.hidden_field :client_id, :readonly => "readonly" %>
     <%= fields_for @sale.client do |c| %>
       <%= c.hidden_field :id %>
-      <%= c.text_field :rfc, :placeholder => "RFC del cliente", :readonly=>"true"  %>
-      <%= c.text_field :nombre, :placeholder => "Nombre del cliente", :readonly=>"true"  %>
-      <%= c.text_field :apellidos, :placeholder => "Apellidos del cliente", :readonly=>"true"  %>
-      <%= c.text_field :direccion, :placeholder => "Domicilio", :readonly=>"true"  %>
-      <%= c.text_field :email, :placeholder => "Email del cliente", :readonly=>"true"  %>
-      <%= c.text_field :telefono, :placeholder => "Teléfono del cliente", :readonly=>"true"  %>
-      <%= c.text_field :facebook, :placeholder => "Facebook del cliente", :readonly=>"true"  %>
-      <%= c.text_field :lynkedin, :placeholder => "Lynkedin del cliente", :readonly=>"true"  %>
+      <%#<input type="text" name="clavecliente" id="clavecliente" placeholder="RFC del cliente"/>%>
+      <%= c.text_field :rfc, :id =>"clavecliente", :readonly => true %>
+      <div id="clienteShow">
+        <%= c.text_field :nombre, :id =>"nombrecliente", :readonly => true  %>
+        <%= c.text_field :apellidos,:id =>"apellidoscliente", :readonly => true  %>
+        <%= c.text_field :direccion, :id =>"direccioncliente", :readonly => true  %>
+        <%= c.text_field :email, :id =>"emailcliente", :readonly => true  %>
+        <%= c.text_field :telefono, :id =>"telefonocliente", :readonly => true  %>
+        <%= c.text_field :facebook, :id =>"facebookcliente", :readonly => true  %>
+        <%= c.text_field :lynkedin, :id =>"lynkedincliente", :readonly => true  %>
+      </div>
     <% end %>
   </fieldset>
 </div>
-<%#
+<div class="span9">
+<fieldset>
+  <legend>Datos de la venta</legend>
 <div id="detallesVentaContainer">
-    <di id="agregarProductoContainer">
-      <input type="text" name="clavelibro" id="clavelibro" placeholder="Clave del libro a agregar"/>
-      <input type="number" name="cantidadlibro" id="cantidadlibro" placeholder="Cantidad" value="1">
-
-    </div>
-
-    <%# Crear la tabla donde agregaremos los productos %>
-
   <table id="detallesVentaTable" cellspacing="0">
     <thead>
       <th>Clave</th>
       <th>Descripción</th>
       <th>P. Unidad</th>
       <th>Cantidad</th>
-      <th>Descuento x libro</th>
+      <th>Descuento x Libro</th>
       <th>Importe</th>
     </thead>
-    <tbody>
+    <tbody>      
       <% @sale.saleDetails.each do |item| %>
         <%= f.fields_for :saleDetails, item do |d| %>
           <tr>
-            <td><%= d.text_field :product_id, :readonly=>"true" %></td>
-				        <%= fields_for item.product do |p| %>
-            		  <td><%= p.text_field :nombre, :readonly=>"true" %></td>
-            	  <% end %>
-            <td><%= d.text_field :preciounitario, :readonly=>"true" %></td>
-            <td><%= d.text_field :cantidad, :readonly=>"true" %></td>
-            <td><%= d.text_field :descuento, :readonly => "true" %></td>
-            <td><%= d.text_field :importetotal, :readonly=>"true" %></td>
+            <td><%= d.text_field :product_id, :class=>"idLibroVender", :readonly=>"true" %></td>
+                <%= fields_for item.product do |p| %>
+                  <td><%= p.text_field :nombre, :readonly=>"true" %></td>
+                <% end %>
+            <td><%= d.text_field :preciounitario, :class=>"precioUnitario", :readonly => "readonly" %></td>
+            <td><%= d.text_field :cantidad, :class =>"cantidadVender", :readonly => "readonly" %></td>
+            <td><%= d.text_field :descuento, :class =>"descuentoProducto", :readonly => "readonly" %></td>
+            <td><%= d.text_field :importetotal, :class =>"importeProducto", :readonly => "readonly" %></td>            
           </tr>
         <% end %>
       <% end %>
@@ -58,22 +63,29 @@
     <tfoot>
       <th colspan="2">Total de artículos:</th>
       <th id="totalArts"></th>
+      <th></th>
       <th>Importe total:</th>
-      <th id="importeTotalVenta"></th>
-      <th><%= f.text_field :importetotal, :readonly=> true %></th>
+      <th id="importeTotalVenta">
+       <div class="control-group">        
+        <%= f.text_field :importetotal, :id=>"importeTotalDeVenta", :placeholder=>"Total de venta" %>
+       </div>
+      </th>
     </tfoot>
   </table>
+</div><br>
+  <div class="control-group"> 
+      <div class="controls">                          
+         <%= f.text_field :usuario_id, :readonly=>true %>        
+      </div>
+    </div>    
+ 
+  <div class="control-group">    
+    <%#= f.datetime_select :fecha %>
+  </div>
+  <div class="form-actions">    
+    <%= link_to t('.Regresar', :default => t("helpers.links.Regresar")), sales_path, :class => 'btn' %>
+  </div>
+
+  </fieldset>
 </div>
-  <div class="field">
-    <%= f.label :fecha %><br>
-    <%= f.datetime_select :fecha %>
-  </div>
-
-  <div class="actions">
-    
-  </div>
 <% end %>
-
-
-<%#= link_to 'Edit', edit_sale_path(@sale) %> 
-<%= link_to 'Regresar', sales_path %>

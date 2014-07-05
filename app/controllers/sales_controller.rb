@@ -1,10 +1,11 @@
 class SalesController < ApplicationController
   before_action :set_sale, only: [:show, :edit, :update, :destroy]
+  #before_filter :require_login, only: [:new, :edit, :update, :destroy]
 
   # GET /sales
   # GET /sales.json
   def index
-    @sales = Sale.all
+    @sales = Sale.all    
   end
 
   # GET /sales/1
@@ -16,12 +17,9 @@ class SalesController < ApplicationController
   def new
     @sale = Sale.new
     #Asociar el cliente
-    @sale.client = Client.new    
-    #Inicializar ocn valores ficticios
-    #@sale.detailsSale << DetailsSale.new(:isbn '123',)
-    #@sale.saleDetails << SaleDetail.new(:importetotal => 100)
+    @sale.client = Client.new      
+    @sale.usuario_id = current_user
     #@sale.saleDetails << SaleDetail.new(:importetotal => 100, :product_id => 4, :cantidad => 1, :preciounitario => 100, :descuento => 10)
-    #:importetotal :product_id :cantidad :preciounitario :descuento :total
   end
 
   # GET /sales/1/edit
@@ -30,44 +28,38 @@ class SalesController < ApplicationController
 
   # POST /sales
   # POST /sales.json
-  def create
-    /@sale = Sale.new(sale_params)
-    @client = Client.new(client_params)    
-    puts "Datos  recibidos de la nueva venta"
-    puts "Cliente -> " + @sale.client_id.to_s + @client.nombre + @client.apellidos + @client.facebook
-    /#strong parameters >> http://edgeapi.rubyonrails.org/classes/ActionController/StrongParameters.html
+  def create        
+    #strong parameters >> http://edgeapi.rubyonrails.org/classes/ActionController/StrongParameters.html
     #se habilito strong parameters en el modelo
     @sale = Sale.new(sale_params)
-    client = Client.new(client_params)    
+    client = Client.new(client_params)   
+    @sale.fecha = Time.new
+    if user_signed_in? 
+      @sale.usuario_id = current_user.id 
+    end
     #al recibir los datos, comprobar si existe el cliente, entonces se pueden actualizar sus datos
-    # si no existe el cliente, registrar un nuevo
+    # si no existe el cliente, registrar un nuevo    
     if @sale.client_id.nil?
       @sale.client = client
-    else
+    else      
       @sale.client.nombre = client.nombre ##si el cliente ya existe, se actualiza al nuevo valor recibido
       @sale.client.direccion = client.direccion
     end
 
-    puts "Datos recibidos de la nueva venta"
- #   @sale.client.nombre = client.nombre ##si el cliente ya existe, se actualiza al nuevo valor recibido
-    puts "Cliente>> " + @sale.client_id.to_s + @sale.client.nombre
+    puts "Datos recibidos de la nueva venta" 
+    puts "Cliente>> " + @sale.client_id.to_s + @sale.client.nombre + @sale.client.rfc
     puts "Productos recibidos: "     
     
-    @sale.saleDetails.each do |item|
-    # #params[:saledetails].each do |item|
-       puts "id: " + item.product_id.to_s + ", p. u: " + item.preciounitario.to_s + ", cantidad: " + item.cantidad.to_s +
+    @sale.saleDetails.each do |item|    
+      puts "id: " + item.product_id.to_s + ", p. u: " + item.preciounitario.to_s + ", cantidad: " + item.cantidad.to_s +
         ", importeTotalVenta: " + item.importetotal.to_s 
     end     
 
-     respond_to do |format|
-      if @sale.save
-        format.html { redirect_to @sale, notice: 'Sale was successfully created.' }
-        format.json { render :show, status: :created, location: @sale }
-      else
-        format.html { render :new }
-        format.json { render json: @sale.errors, status: :unprocessable_entity }
-      end
-     end
+    #@sale.products.each do |p|
+      #puts "IDdelPRODUCTO: " + p.product_id.to_s + ", precio. u: " + p.preciounitario.to_s + ", cantidad: " + p.cantidad.to_s +
+        #{}", importeTotalVenta: " + p.importetotal.to_s 
+    #end
+
   end
 
   # PATCH/PUT /sales/1
@@ -109,5 +101,4 @@ class SalesController < ApplicationController
     def client_params
       params.require(:client).permit(:rfc, :nombre, :apellidos, :telefono, :direccion, :facebook, :lynkedin, :email)
     end
-
 end

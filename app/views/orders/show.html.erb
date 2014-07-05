@@ -1,34 +1,31 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Order -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
 
-<p>
-  <strong>Usuario:</strong>
-  <%= @order.usuario_id %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:usuario_id) %>:</strong></dt>
+  <dd><%= @order.usuario_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:client_id) %>:</strong></dt>
+  <dd><%= @order.client_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:fechaPedido) %>:</strong></dt>
+  <dd><%= @order.fechaPedido %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:fechaEntrega) %>:</strong></dt>
+  <dd><%= @order.fechaEntrega %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:fechaRealEntrega) %>:</strong></dt>
+  <dd><%= @order.fechaRealEntrega %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:estado) %>:</strong></dt>
+  <dd><%= @order.estado %></dd>
+</dl>
 
-<p>
-  <strong>Client:</strong>
-  <%= @order.client_id %>
-</p>
-
-<p>
-  <strong>Fechapedido:</strong>
-  <%= @order.fechaPedido %>
-</p>
-
-<p>
-  <strong>Fechaentrega:</strong>
-  <%= @order.fechaEntrega %>
-</p>
-
-<p>
-  <strong>Fecharealentrega:</strong>
-  <%= @order.fechaRealEntrega %>
-</p>
-
-<p>
-  <strong>Estado:</strong>
-  <%= @order.estado %>
-</p>
-
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              orders_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_order_path(@order), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              order_path(@order),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

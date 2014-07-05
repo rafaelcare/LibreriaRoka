@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140622194828) do
+ActiveRecord::Schema.define(version: 20140628221842) do
 
   create_table "categories", force: true do |t|
     t.string   "nombre"
@@ -28,15 +28,6 @@ ActiveRecord::Schema.define(version: 20140622194828) do
     t.string   "facebook"
     t.string   "lynkedin"
     t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "goal_sales", force: true do |t|
-    t.integer  "usuario_id"
-    t.boolean  "alcanzado"
-    t.datetime "fechainicio"
-    t.datetime "fechafin"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -114,22 +105,26 @@ ActiveRecord::Schema.define(version: 20140622194828) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "username",                     null: false
-    t.string   "email",                        null: false
-    t.string   "crypted_password",             null: false
-    t.string   "salt",                         null: false
-    t.string   "tipoUsuario",                  null: false
-    t.string   "nombre",                       null: false
-    t.string   "apellidos",                    null: false
-    t.string   "telefono",                     null: false
-    t.string   "direccion",                    null: false
+    t.string   "username",                            null: false
+    t.string   "nombre",                              null: false
+    t.string   "direccion",                           null: false
+    t.string   "telefono",                            null: false
+    t.string   "role",                                null: false
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "remember_me_token"
-    t.datetime "remember_me_token_expires_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token"
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end

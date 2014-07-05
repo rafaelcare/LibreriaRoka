@@ -1,14 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>LibreriaRoka</title>
+  <title>Libreria Roka</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-
-<%= yield %>
-
+	<div class="container">
+		<div class="navbar navbar-fixed-top">
+		  <div class="navbar-inner">
+		    <div class="container">
+		      <div class="brand" >BOOK'S LIGHT</div>
+			    <div class="navbar-text pull-right">
+			    	<% if user_signed_in? %>
+					  Sesión <strong><%= current_user.username %></strong>.
+					  <%= link_to 'Editar cuenta', edit_user_registration_path,  :class=>"btn btn-link" %> |
+					  <%= link_to "Cerrar sesión", destroy_user_session_path, method: :delete,  :class=>"btn btn-link"  %>
+					<% else %>
+					  <%= link_to "Crear cuenta", new_user_registration_path, :class => 'navbar-link'  %> |
+					  <%= link_to "Iniciar sesión", new_user_session_path, :class => 'navbar-link'  %>
+					<% end %>							
+			    </div>			       		    
+		    </div>
+		    <div class="container">
+		    <div class="nav-collapse">
+		        <ul class="nav nav-pills">		          	
+		          <li><%= link_to 'Libros', products_path %></li>
+				  <li><%= link_to 'Promociones', promotions_path %></li>
+				  <li><%= link_to 'Clientes', clients_path %></li>
+				  <li><%= link_to 'Pedidos', orders_path %></li>
+				  <li><%= link_to 'Ventas', sales_path %></li>
+				  <li><%= link_to 'Proveedores', providers_path %></li>
+				  <li><%= link_to 'Usuarios' %></li>
+			  	  <li><%= link_to 'Categorias', categories_path %></li>
+				  <li><%= link_to 'Reportes' %></li>					
+		        </ul>		        	
+		        	<%#<input type="text" class="form-control" placeholder="Buscar">				      
+				    <button type="submit" class="btn btn-default">Enviar</button>%>
+		      </div>
+		      </div>
+		  </div>
+		</div>
+		<% if notice %>
+		  <p class="alert alert-success"><%= notice %></p>
+		<% end %>
+		<% if alert %>
+		  <p class="alert alert-danger"><%= alert %></p>
+		<% end %>
+	    <%# flash.each do |name, msg| %>
+	      <%#= content_tag :div, msg, :id => "flash_#{name}" %>
+	    <%# end %> 	
+	<%= yield %>
+	</div>
 </body>
 </html>

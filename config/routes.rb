@@ -1,22 +1,11 @@
 Rails.application.routes.draw do
-  resources :example_orders
-
+  devise_for :users
   resources :categories
-
-  resources :goal_sales
-
   resources :order_details
-
-  resources :users
-
   resources :orders
-
   resources :promotions
-
   resources :providers
-
   resources :sale_details
-
   resources :clients do
     collection do
       post :findRFC
@@ -29,15 +18,13 @@ Rails.application.routes.draw do
       get :find
     end
   end
-
-
   resources :sales
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'sales#index'
+    root 'sales#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -10,11 +10,14 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
+
   end
 
   # GET /orders/new
   def new
     @order = Order.new
+    @order.client= Client.new
+     @sale.usuario_id = current_user
   end
 
   # GET /orders/1/edit
@@ -25,17 +28,38 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
+    client = Client.new(client_params)
+
+   if @order.client_id.nil?
+      @order.client = client
+    else
+      @order.client.nombre = client.nombre ##si el cliente ya existe, se actualiza al nuevo valor recibido
+      @order.client.direccion = client.direccion
+    end
+ #al recibir los datos, comprobar si existe el cliente, entonces se pueden actualizar sus datos
+    # si no existe el cliente, registrar un nuevo
+    puts "Datos recibidos"
+    puts "Productos recibidos como pedido: "     
+    @order.orderDetails.each do |item|
+     puts "id: " + item.id.to_s + ", p. u: " +  ", cantidad: , importe: " 
+    end
 
     respond_to do |format|
-      if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
-        format.json { render :show, status: :created, location: @order }
-      else
-        format.html { render :new }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
+      if @order.valid?
+        if @order.save
+          format.html { redirect_to @order, notice: 'Order was successfully created.' }
+          format.json { render :show, status: :created, location: @order }
+        else
+          format.html { render :new }
+          format.json { render json: @order.errors, status: :unprocessable_entity }
+        end
+        else
+          format.html { render :new }
+          format.json { render json: @order.errors, status: :unprocessable_entity }
+        end
       end
     end
-  end
+
 
   # PATCH/PUT /orders/1
   # PATCH/PUT /orders/1.json
@@ -70,5 +94,8 @@ class OrdersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
       params.require(:order).permit(:usuario_id, :client_id, :fechaPedido, :fechaEntrega, :fechaRealEntrega, :estado)
+    end
+    def client_params
+      params.require(:client).permit(:rfc, :nombre, :apellidos, :telefono, :direccion, :facebook, :lynkedin, :email)
     end
 end

@@ -1,37 +1,38 @@
-<%= form_for(@promotion) do |f| %>
-  <% if @promotion.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@promotion.errors.count, "error") %> prohibited this promotion from being saved:</h2>
-
-      <ul>
-      <% @promotion.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<%= form_for @promotion, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :usuario_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :usuario_id, :class => 'text_field' %>
     </div>
-  <% end %>
+  </div>
+  <div class="control-group">
+    <%= f.label :client_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :client_id, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :descripcion, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :descripcion, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :acuerdo, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :acuerdo, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :medio, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :medio, :class => 'text_field' %>
+    </div>
+  </div>
 
-  <div class="field">
-    <%= f.label :usuario_id %><br>
-    <%= f.number_field :usuario_id %>
-  </div>
-  <div class="field">
-    <%= f.label :client_id %><br>
-    <%= f.number_field :client_id %>
-  </div>
-  <div class="field">
-    <%= f.label :descripcion %><br>
-    <%= f.text_area :descripcion %>
-  </div>
-  <div class="field">
-    <%= f.label :acuerdo %><br>
-    <%= f.text_area :acuerdo %>
-  </div>
-  <div class="field">
-    <%= f.label :medio %><br>
-    <%= f.text_field :medio %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                promotions_path, :class => 'btn' %>
   </div>
 <% end %>
